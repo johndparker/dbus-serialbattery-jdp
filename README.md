@@ -1,3 +1,19 @@
+# Why this fork?
+In a multi BMS system, I would like to use the unique ID from the USB to RS485 adapter rather than create fake unique IDs by adjusting the rated capacity of each battery to create a falsly unique identifier.
+
+The only downside of my approach is that the ID will change if you have to change the adapter which should be unlikely in a stable system as long as you use genuine hardware.
+
+This is better than using the device name (/dev/ttyUSBx) because that can change, although even that can be fixed by adding udev rules that tie names to adapter attributes.
+
+Note that this tweak to seplos.py requires the installation of pyudev which I did with:
+
+```
+# opkg update
+# opkg install python3-pip
+# pip install pyudev
+```
+I've also tweaked like 149 of dbus-serialbattery.py to return 1 instead of 0 - thanks Mr Manuel!
+
 # dbus-serialbattery
 This is a driver for Venus OS devices (any GX device sold by Victron or a Raspberry Pi running the Venus OS image).
 
