@@ -1,3 +1,10 @@
+# Why this fork
+In a multi battery system where there is apparently no unique identifier for each battery, rather than having to adjust the rated capacity of each battery to create a fake unique ID, I'd like to use the serial number form the USB to 485 adapter as the unique ID. 
+
+The only downside of this approach as far as I can see is that the ID will change if you have to change the adapter, but in a stable system that is quite unlikely as long as you use genuine hardware.
+
+This is better than using the device name because that can change (although even that can be fixed with udev rules.
+
 # dbus-serialbattery
 This is a driver for Venus OS devices (any GX device sold by Victron or a Raspberry Pi running the Venus OS image).
 
