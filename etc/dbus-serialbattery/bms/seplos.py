@@ -5,12 +5,20 @@ import utils
 import serial
 import sys
 
+#JDP import from pyudev to get adapter serial
+from pyudev import Context,Devices
 
 class Seplos(Battery):
     def __init__(self, port, baud, address=0x00):
         super(Seplos, self).__init__(port, baud, address)
         self.type = self.BATTERYTYPE
         self.poll_interval = 5000
+        
+        #JDP get unique id of serial adapter as proxy for BMS serial
+        context = Context()
+        udevice = Devices.from_device_file(context, port)
+        self.unique_identifier_tmp = udevice.get('ID_SERIAL_SHORT')
+        #JDP end
 
     BATTERYTYPE = "Seplos"
 
@@ -322,3 +330,10 @@ class Seplos(Battery):
             )
 
             return return_data
+
+    #JDP add method to return unique id
+    def unique_identifier(self) -> str:
+        """
+        Used to identify a BMS when multiple BMS are connected
+        """
+        return self.unique_identifier_tmp
